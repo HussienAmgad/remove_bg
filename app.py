@@ -7,8 +7,8 @@ from rembg import remove, new_session
 
 app = FastAPI(title="Free Background Remover API", version="1.0.0")
 
-# Load the model session once for better performance
-session = new_session()  # default U2Net
+# ✅ استخدم الموديل الخفيف u2netp
+session = new_session("u2netp")
 
 @app.get("/health")
 async def health():
@@ -44,7 +44,8 @@ async def remove_bg(
     /remove?url=https://example.com/cat.jpg&format=png&download=1
     """
     img = await fetch_image(url)
-    # Remove background
+
+    # ✅ Remove background باستخدام الموديل الخفيف
     out_img = remove(img, session=session)
 
     # Prepare buffer
